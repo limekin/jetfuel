@@ -25,4 +25,7 @@ class Url
 
 end
 
+
 DataMapper.auto_migrate!
+
+User.create(username: "anonymous")

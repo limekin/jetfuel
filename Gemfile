@@ -5,4 +5,5 @@ gem "sinatra", require: "sinatra/base"
 gem "data_mapper"
 gem "dm-postgres-adapter"
 gem "rspec-core"
+gem "haml"
 

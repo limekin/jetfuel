@@ -1,0 +1,18 @@
+%p.text-center
+        Signup an account, so you get your own set of URLs private to you.
+%br
+%br
+
+.row
+        .col-md-offset-4.col-md-4
+                %form{role: "form"}
+                        .form-group
+                                %label Username : 
+                                %input.form-control{type: "text", name: "user[username]", placeholder: "Enter username here."}
+                        .form-group
+                                %label Password :
+                                %input.form-control{type: "password", name: "user[password]", placeholder: "Enter password here"} 
+                        .form-group
+                                %label Confirm Password :
+                                %input.form-control{type: "password", name: "user[confirm_pass]", placeholder: "Confrim here."}
+                        %button.btn.btn-primary{type: "button"} Sign Up

@@ -16,12 +16,16 @@ module Routes
 
 
 		get '/login' do
+
+			haml :login
 		end
 
 		get '/logout' do 
 		end
 
 		get '/signup' do
+
+			haml :signup
 		end
 
 
@@ -33,12 +37,34 @@ module Routes
 		end
 
 		get '/' do
+
+			haml :home
+
 		end
 
-		get '/:url_hash' do
+		get '/popular_urls' do 
+
+			haml :popular_urls
+		end
+
+		get '/my_urls' do
+
+			haml :my_urls
+		end
+
+		get '/:vanity/:url_hash' do
+		end
+
+		get '/failure' do 
+
+			@message = params[:message]
+
+			haml :failure
 		end
 
 		post '/shorten' do
+
+			haml :result
 		end
 	end
 

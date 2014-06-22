@@ -55,6 +55,8 @@ GEM
     do_postgres (0.10.13-x86-mingw32)
       data_objects (= 0.10.13)
     fastercsv (1.5.5)
+    haml (4.0.2)
+      tilt
     json (1.8.1)
     json_pure (1.8.1)
     multi_json (1.10.0)
@@ -76,5 +78,6 @@ PLATFORMS
 DEPENDENCIES
   data_mapper
   dm-postgres-adapter
+  haml
   rspec-core
   sinatra

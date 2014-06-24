@@ -7,7 +7,8 @@ class User
 	include DataMapper::Resource
 
 	property :id, Serial
-	property :username, String
+	property :username, String, :required => true
+	property :password, String
 	has n, :urls
 
 
@@ -54,6 +55,6 @@ class Url
 end
 
 
-DataMapper.auto_migrate!
+DataMapper.auto_upgrade!
 
-User.create(username: "anonymous")
+User.create(username: "anonymous") unless User.first(:username => "anonymous")

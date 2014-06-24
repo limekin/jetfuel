@@ -12,15 +12,64 @@ end
 
 module Routes
 
-	class Login < Sinatra::Base
+	class Auth < Sinatra::Base
 
 
-		get '/login' do
+		helpers do
 
-			haml :login
+			def authenticate(user_data)
+
+				unless user_data[:username] and user_data[:password]
+					redirect to("/signin")
+				end
+
+				user = User.first(:username => user_data[:username], :password => user_data[:password])
+
+				if user
+					session[:user] = user
+				else
+					redirect to('/signin')
+				end
+
+				redirect to('/')
+
+			end
+
+			def add_user(user_data)
+
+				redirect to('/signup') unless user_data[:password].eql? user_data[:confirm_pass]
+				puts 'hohho'
+
+				user = User.new
+				user.username = user_data[:username]
+				user.password = user_data[:password]
+				if user.save
+					redirect to("/signin")
+				else
+					redirect to("/signup")
+				end
+				
+			end
+
+
 		end
 
-		get '/logout' do 
+		before do
+
+			session[:user] = User.first(:username => "anonymous") unless session[:user]
+			@user = session[:user]
+
+		end
+		get '/signin' do
+
+			haml :signin
+		end
+
+		get '/signout' do 
+
+			session[:user] = nil
+			redirect to("/")
+
 		end
 
 		get '/signup' do
@@ -28,12 +77,27 @@ module Routes
 			haml :signup
 		end
 
+		post '/signup' do
+		
+			add_user(params[:user])
+
+		end
+
+		post '/signin' do
+
+			authenticate(params[:user])
+
+		end
+
+
+
 
 	end
 
 	class Basic <  Sinatra::Base
 
 		before do
+			@user = session[:user]
 		end
 
 		get '/' do
@@ -73,7 +137,7 @@ end
 class JetFuel < Sinatra::Base
 
 	use Configuration
-	use Routes::Login
+	use Routes::Auth
 	use Routes::Basic
 
 

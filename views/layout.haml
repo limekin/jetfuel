@@ -15,8 +15,17 @@
                                 %li 
                                         %a{href: "/my_urls"} My Urls 
                         %ul.nav.navbar-nav.navbar-right
-                                %li
-                                        %a{href: "/signup"} Sign Up 
+                                - unless @user.username.eql?("anonymous")
+                                        %li
+                                                %a{href: "/my_urls"} 
+                                                        = @user.username
+                                        %li
+                                                %a{href: "/signout"} Sign Out
+                                - else                     
+                                        %li
+                                                %a{href: "/signin"} Sign In
+                                        %li
+                                                %a{href: "/signup"} Sign Up 
 
                 .container
                         = yield

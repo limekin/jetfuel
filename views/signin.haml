@@ -1,0 +1,14 @@
+%p.text-center Please sign in to continue.
+
+.row
+        .col-md-offset-4.col-md-4
+                %form{role: "form", action: "/signin", method: "POST"} 
+                        .form-group
+                                %label Username :
+                                %input.form-control{type: "text", name: "user[username]"}
+                        .form-group
+                                %label Password :
+                                %input.form-control{type: "password", name: "user[password]"}
+                        %button.btn.btn-primary{type: "submit"} Sign In
+
+                        

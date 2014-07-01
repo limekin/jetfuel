@@ -19,29 +19,31 @@ class Url
 	include DataMapper::Resource
 
 	property :id, Serial
-	property :absolute, String, :required => true
-	property :short_hash, String, :required => true
-	property :custom_prefix, String, :default => ""
+	property :absolute, Text 
+	property :short_hash, Text
+	property :custom_prefix, Text
 	property :popularity, Integer, :default => 0
 
 	belongs_to :user
-	before :valid?, :compute_hash
 
-	def compute_hash(context = :default)
+	def compute_hash
 
-		self.short_hash = OPEN::SSL::Digest::SHA224.new.digest(self.absolute)
+		id = DataMapper.repository(:default).adapter.select("SELECT nextval('id_gen')")[0]
+		Base62.convert62(id)
 
 	end
 
 	def shortened_url
 
-		"/" + self.custom_prefix + "/" + self.short_hash
+		ret = "http://localhost:9292/" 
+		ret += self.custom_prefix + "/" if custom_prefix
+		ret += self.short_hash
 
 	end
 
 	def self.by_popularity
 
-		all(:order => [:popularity.desc])
+		all(:user_id => 1, :order => [:popularity.desc])
 
 	end
 
@@ -55,6 +57,12 @@ class Url
 end
 
 
-DataMapper.auto_upgrade!
+DataMapper.auto_migrate!
 
 User.create(username: "anonymous") unless User.first(:username => "anonymous")
+
+adapter = DataMapper.repository(:default).adapter
+
+if adapter.select("SELECT EXISTS ( SELECT * FROM id_gen)")[0] == 't'
+	adapter.execute "CREATE SEQUENCE id_gen MINVALUE 0"
+end

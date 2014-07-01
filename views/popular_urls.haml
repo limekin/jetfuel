@@ -6,6 +6,14 @@
                         %tr
                                 %th Clicks
                                 %th URL
-                        %tr
-                                %td 200
-                                %td http://www.google.com/
+                                %th Shortened
+                        - @popular_urls.each do |url|
+                                %tr
+                                        %td 
+                                                = url.popularity
+                                        %td
+                                                %a{href: "#{url.absolute}"}
+                                                        = url.absolute
+                                        %td
+                                                %a{href: "#{url.shortened_url}"}
+                                                        = url.shortened_url

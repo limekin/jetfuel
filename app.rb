@@ -26,7 +26,7 @@ module Routes
 				user = User.first(:username => user_data[:username], :password => user_data[:password])
 
 				if user
-					session[:user] = user
+					session[:user] = user.id
 				else
 					redirect to('/signin')
 				end
@@ -56,8 +56,8 @@ module Routes
 
 		before do
 
-			session[:user] = User.first(:username => "anonymous") unless session[:user]
-			@user = session[:user]
+			session[:user] = User.first(:username => "anonymous").id unless session[:user]
+			@user = User.first(:id => session[:user])
 
 		end
 		get '/signin' do
@@ -97,7 +97,7 @@ module Routes
 	class Basic <  Sinatra::Base
 
 		before do
-			@user = session[:user]
+			@user = User.first(:id => session[:user])
 		end
 
 		get '/' do
@@ -108,26 +108,48 @@ module Routes
 
 		get '/popular_urls' do 
 
+			@popular_urls = Url.by_popularity
 			haml :popular_urls
 		end
 
 		get '/my_urls' do
 
+			@my_urls = @user.urls
 			haml :my_urls
-		end
 
-		get '/:vanity/:url_hash' do
 		end
 
 		get '/failure' do 
 
 			@message = params[:message]
-
 			haml :failure
 		end
 
+		['/:custom_prefix/:short_hash', '/:short_hash'].each  do |route|
+			get route do
+			
+				sh = params[:short_hash]
+				id = Base62.rconvert62(sh)
+				@absolute_url = Url.first(:id)
+				if @absolute_url
+					@absolute_url.update(:popularity => (@absolute_url.popularity + 1))
+					redirect to(@absolute_url.absolute)
+				end
+
+				redirect to("/failure")
+			end
+
+		end
+
+
 		post '/shorten' do
 
+			Url.raise_on_save_failure = true
+			@url = @user.urls.new
+			@url.absolute = params[:url]
+			@url.short_hash = @url.compute_hash
+			@short_version = @url.shortened_url
+			@url.save
 			haml :result
 		end
 	end

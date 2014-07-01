@@ -7,15 +7,16 @@
         %body
                 %nav.navbar.navbar-inverse{role: "navigation"}
                         %ul.nav.navbar-nav
-                                %a.navbar-brand{href: "/"} JetFuel
+                                %a.navbar-brand.custom-heading{href: "/"} JetFuel
                                 %li.active
                                         %a{href: "/"} Home 
                                 %li 
                                         %a{href: "/popular_urls"} Popular Urls 
-                                %li 
-                                        %a{href: "/my_urls"} My Urls 
+                                - unless @user.username.eql? "anonymous"
+                                        %li 
+                                                %a{href: "/my_urls"} My Urls 
                         %ul.nav.navbar-nav.navbar-right
-                                - unless @user.username.eql?("anonymous")
+                                - unless @user.username.eql? "anonymous"
                                         %li
                                                 %a{href: "/my_urls"} 
                                                         = @user.username
@@ -29,4 +30,9 @@
 
                 .container
                         = yield
+                .footer
+                        .container
+                                %p.text-center.custom-center-text Copywrong alright. 
+                        
                 %script{type: "text/javascript", src: "/bootstrap/js/bootstrap.js"}
+                %script{type: "text/javascript", src: "/js/custom-js.js"}

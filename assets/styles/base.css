@@ -15,6 +15,11 @@ body
 	letter-spacing: 2px;
 }
 
+.validation-error
+{
+	color:red;
+}
+
 .custom-center-form
 {
 	margin-top:30%;

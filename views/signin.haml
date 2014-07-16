@@ -3,6 +3,10 @@
 .row
         .col-md-offset-4.col-md-4
                 %form.custom-center-form{role: "form", action: "/signin", method: "POST"} 
+                        - if session[:flash]
+                                .alert.alert-danger
+                                        = session[:flash]
+                                        - session[:flash] = nil
                         .form-group
                                 %label Username :
                                 %input.form-control{type: "text", name: "user[username]"}

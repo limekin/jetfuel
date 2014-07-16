@@ -28,7 +28,8 @@ module Routes
 				if user
 					session[:user] = user.id
 				else
-					redirect to('/signin')
+					session[:flash] = "Login details are fake."
+					redirect to('/signin', 'habu')
 				end
 
 				redirect to('/')

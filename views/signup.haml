@@ -5,17 +5,19 @@
 
 .row
         .col-md-offset-4.col-md-4
-                %form{role: "form", action: "/signup", method: "POST"}
+                %form{name: 'SignUpForm', role: "form", action: "/signup", method: "POST", onsubmit: "return validateForm();"}
                         .form-group
-                                %label Username : 
-                                %input.form-control{type: "text", name: "user[username]", placeholder: "Enter username here."}
+                                %label.data-label Username 
+                                %input.form-control.form-data{type: "text", name: "user[username]", placeholder: "Enter username here.", onchange: "validateUsername(this);"}
                         .form-group
-                                %label Vanity : (optional)
-                                %input.form-control{type: "text", name: "user[vanity]", placeholder: "Vanity string here."}
+                                %label.data-label Vanity (optional)
+                                %input.form-control.form-data{type: "text", name: "user[vanity]", placeholder: "Vanity string here." }
                         .form-group
-                                %label Password :
-                                %input.form-control{type: "password", name: "user[password]", placeholder: "Enter password here"} 
+                                %label.data-label Password
+                                %input.form-control.form-data{type: "password", name: "user[password]", placeholder: "Enter password here", onchange: "validatePassword(this);"} 
                         .form-group
-                                %label Confirm Password :
-                                %input.form-control{type: "password", name: "user[confirm_pass]", placeholder: "Confrim here."}
-                        %button.btn.btn-primary{type: "submit"} Sign Up
+                                %label.data-label Confirm Password
+                                %input.form-control.form-data{type: "password", name: "user[confirm_pass]", placeholder: "Confrim here.", onchange: "validateConfirmPassword(this);"}
+                        %button.btn.btn-primary{id: "muchamba", onclick: "validateForm();"} Sign Up
+        .col-md-offset-2.col-md-8
+                %p.text-center.validation-error{id: "validationError"}

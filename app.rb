@@ -153,6 +153,13 @@ module Routes
 			@url.save
 			haml :result
 		end
+
+		delete '/delete/:url_id' do 
+			@url = Url.get(params[:url_id])
+			@url.destroy
+
+			redirect to('/my_urls')
+		end
 	end
 
 end

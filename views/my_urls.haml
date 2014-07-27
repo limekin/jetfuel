@@ -2,21 +2,25 @@
 
 .row
         .col-md-12
-                %table.table.table-striped
-                        %tr
-                                %th Clicks
-                                %th URL
-                                %th Shortened
-                                %th Actions 
-                        - @my_urls.each do |url|
+                .custom-scrolled-content
+                        %table.table.table-striped
                                 %tr
-                                        %td
-                                                = url.popularity
-                                        %td
-                                                %a{href: "#{url.absolute}"}
-                                                        = url.absolute
-                                        %td
-                                                %a{href: "#{url.shortened_url}"}
-                                                        = url.shortened_url
-                                        %td
-                                                %a{href: "#"} Remove
+                                        %th Clicks
+                                        %th URL
+                                        %th Shortened
+                                        %th Actions 
+                                - @my_urls.each do |url|
+                                        %tr
+                                                %td
+                                                        = url.popularity
+                                                %td
+                                                        %a{href: "#{url.absolute}"}
+                                                                = url.absolute
+                                                %td
+                                                        %a{href: "#{url.shortened_url}"}
+                                                                = url.shortened_url
+                                                %td
+                                                        %a{href: "#", onclick: "document.getElementById('delete_#{url.id}').submit();"} Remove
+                                                        %form{id: "delete_#{url.id}", action: "/delete/#{url.id}", method:"POST"}
+                                                                %input{type: "hidden", name: "_method", value: "DELETE"}
+

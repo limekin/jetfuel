@@ -1,5 +1,8 @@
 DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, "postgres://postgres:rubyist12@localhost/Jetfuel")
+## Development
+# DataMapper.setup(:default, "postgres://postgres:rubyist12@localhost/Jetfuel")
+DataMapper.setup(:deault, ENV["DATABASE_URL"])
+
 
 
 class User
@@ -57,7 +60,7 @@ class Url
 end
 
 
-DataMapper.auto_migrate!
+DataMapper.auto_upgrade!
 
 User.create(username: "anonymous") unless User.first(:username => "anonymous")
 

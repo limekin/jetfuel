@@ -2,18 +2,19 @@
 
 .row
         .col-md-12
-                %table.table.table-striped
-                        %tr
-                                %th Clicks
-                                %th URL
-                                %th Shortened
-                        - @popular_urls.each do |url|
+                .custom-scrolled-content
+                        %table.table.table-striped
                                 %tr
-                                        %td 
-                                                = url.popularity
-                                        %td
-                                                %a{href: "#{url.absolute}"}
-                                                        = url.absolute
-                                        %td
-                                                %a{href: "#{url.shortened_url}"}
-                                                        = url.shortened_url
+                                        %th Clicks
+                                        %th URL
+                                        %th Shortened
+                                - @popular_urls.each do |url|
+                                        %tr
+                                                %td 
+                                                        = url.popularity
+                                                %td
+                                                        %a{href: "#{url.absolute}"}
+                                                                = url.absolute
+                                                %td
+                                                        %a{href: "#{url.shortened_url}"}
+                                                                = url.shortened_url

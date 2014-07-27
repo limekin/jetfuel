@@ -58,7 +58,7 @@ function validateForm() {
 	for(var i = 0; i < formFields.length; ++i) {
 		if(! formFields[i].value) {
 			showError(dataLabels[i].innerHTML + " cannot be let empty.");
-			formFields[i].setFocus;
+			formFields[i].focus();
 			return false;
 		}
 	}

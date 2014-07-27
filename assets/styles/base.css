@@ -1,6 +1,5 @@
 body
 {
-  	margin-bottom: 50px;
 	background-color:#EEEEEE;
 }
 
@@ -28,6 +27,12 @@ body
 .custom-center-text
 {
 	margin-top:15px;
+}
+
+.custom-scrolled-content
+{
+	overflow-y:scroll;
+	height:450px;
 }
 
 .footer 

@@ -1,7 +1,7 @@
 DataMapper::Logger.new($stdout, :debug)
 ## Development
 # DataMapper.setup(:default, "postgres://postgres:rubyist12@localhost/Jetfuel")
-DataMapper.setup(:deault, ENV["DATABASE_URL"])
+DataMapper.setup(:default, ENV["DATABASE_URL"])
 
 
 

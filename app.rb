@@ -56,6 +56,8 @@ module Routes
 		end
 
 		before do
+			DataMapper::Logger.new($stdout, :debug)
+DataMapper.setup(:default, ENV["DATABASE_URL"])
 
 			session[:user] = User.first(:username => "anonymous").id unless session[:user]
 			@user = User.first(:id => session[:user])
@@ -98,6 +100,8 @@ module Routes
 	class Basic <  Sinatra::Base
 
 		before do
+			DataMapper::Logger.new($stdout, :debug)
+DataMapper.setup(:default, ENV["DATABASE_URL"])
 			@user = User.first(:id => session[:user])
 		end
 

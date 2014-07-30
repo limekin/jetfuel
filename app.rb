@@ -1,3 +1,5 @@
+
+
 class Configuration < Sinatra::Base
 
 	configure do

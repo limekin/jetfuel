@@ -1,8 +1,6 @@
 
-## Development
-# DataMapper.setup(:default, "postgres://postgres:rubyist12@localhost/Jetfuel")
 DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, ENV["DATABASE_URL"])
+DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12@localhost/Jetfuel")
 
 
 
@@ -67,6 +65,6 @@ User.create(username: "anonymous") unless User.first(:username => "anonymous")
 
 adapter = DataMapper.repository(:default).adapter
 
-if adapter.select("SELECT EXISTS ( SELECT * FROM id_gen)")[0] == 't'
+if adapter.select("SELECT EXISTS ( SELECT * FROM pg_class WHERE relname = 'id_gen' )")[0] == 'f'
 	adapter.execute "CREATE SEQUENCE id_gen MINVALUE 0"
 end

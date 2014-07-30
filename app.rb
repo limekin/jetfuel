@@ -59,7 +59,7 @@ module Routes
 
 		before do
 			DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, ENV["DATABASE_URL"])
+DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12@localhost/Jetfuel")
 
 			session[:user] = User.first(:username => "anonymous").id unless session[:user]
 			@user = User.first(:id => session[:user])
@@ -103,7 +103,7 @@ DataMapper.setup(:default, ENV["DATABASE_URL"])
 
 		before do
 			DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, ENV["DATABASE_URL"])
+DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12@localhost/Jetfuel")
 			@user = User.first(:id => session[:user])
 		end
 

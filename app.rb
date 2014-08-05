@@ -132,8 +132,7 @@ DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12
 			haml :failure
 		end
 
-		['/:custom_prefix/:short_hash', '/:short_hash'].each  do |route|
-			get route do
+		get /\/:custom_prefix\/:short_hash|\/:short_hash/ do 
 			
 				sh = params[:short_hash]
 				id = Base62.rconvert62(sh)
@@ -144,10 +143,8 @@ DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12
 				end
 
 				redirect to("/failure")
-			end
 
 		end
-
 
 		post '/shorten' do
 

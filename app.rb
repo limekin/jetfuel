@@ -58,7 +58,6 @@ module Routes
 		end
 
 		before do
-			DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12@localhost/Jetfuel")
 
 			session[:user] = User.first(:username => "anonymous").id unless session[:user]
@@ -102,7 +101,6 @@ DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12
 	class Basic <  Sinatra::Base
 
 		before do
-			DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12@localhost/Jetfuel")
 			@user = User.first(:id => session[:user])
 		end

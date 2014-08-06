@@ -106,7 +106,7 @@ DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://postgres:rubyist12
 		end
 
 		get '/' do
-
+			puts 'HERE !! XD'
 			haml :home
 
 		end

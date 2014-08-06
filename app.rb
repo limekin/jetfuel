@@ -7,6 +7,7 @@ class Configuration < Sinatra::Base
 		enable :sessions
 		enable :method_override
 		set :public_folder, Dir.pwd + "/assets"
+		puts 'HERE !!'
 		
 	end
 

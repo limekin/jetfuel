@@ -9,5 +9,4 @@ gem "dm-postgres-adapter"
 gem "rspec-core"
 gem "haml"
 gem "pg"
-gem "dm-postgres-adapter"
 
